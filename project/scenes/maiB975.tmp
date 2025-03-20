@@ -1,0 +1,556 @@
+[gd_scene load_steps=51 format=4 uid="uid://cx3xqog4ayc20"]
+
+[ext_resource type="PackedScene" uid="uid://ddwsa2td4q6d0" path="res://models/world/rober.tscn" id="1_unkk4"]
+[ext_resource type="Script" path="res://scripts/cam_controls.gd" id="1_vfsca"]
+[ext_resource type="Script" path="res://scripts/ctrl_robot.gd" id="2_rhms6"]
+[ext_resource type="Script" path="res://scripts/ctrl_steer.gd" id="3_d4rv8"]
+[ext_resource type="Script" path="res://scripts/ctrl_marcha.gd" id="4_dlm6g"]
+[ext_resource type="AudioStream" uid="uid://vkcqdlgcy072" path="res://misc/SFXmanivela.wav" id="4_m1ry4"]
+[ext_resource type="Script" path="res://scripts/cam_robot.gd" id="4_x7owj"]
+[ext_resource type="PackedScene" uid="uid://bnxxm4qjydbbn" path="res://models/control/pared.tscn" id="5_dwlgk"]
+[ext_resource type="PackedScene" uid="uid://cnbaa5m8f4bgb" path="res://models/control/manivela.tscn" id="5_v6631"]
+[ext_resource type="PackedScene" uid="uid://dcufkiuq8ye5k" path="res://models/control/palanca_base.tscn" id="6_22uvd"]
+[ext_resource type="Material" uid="uid://bt4qlttenejkj" path="res://misc/ctrl_material.tres" id="6_dot7u"]
+[ext_resource type="AudioStream" uid="uid://cf43xis05hghc" path="res://misc/SFXengine.mp3" id="6_v5ub7"]
+[ext_resource type="PackedScene" uid="uid://dwc5r45hq36xy" path="res://models/control/palanca_agarre.tscn" id="7_6fp2c"]
+[ext_resource type="Texture2D" uid="uid://dnnk8ob1f6mco" path="res://models/M.A.R_marsTextures.png" id="7_uhy4e"]
+[ext_resource type="PackedScene" uid="uid://cs5h1k15lo2gw" path="res://models/control/palanca_rueda.tscn" id="8_aurj8"]
+[ext_resource type="Shader" path="res://misc/fishEye.gdshader" id="9_1a1kl"]
+[ext_resource type="PackedScene" uid="uid://bttox54h3jtw6" path="res://models/control/radar.tscn" id="12_dqscn"]
+[ext_resource type="PackedScene" uid="uid://bbcpsrn2nem5y" path="res://models/control/pantalla.tscn" id="13_qwvuv"]
+[ext_resource type="Shader" path="res://misc/scaner.gdshader" id="14_xjbao"]
+[ext_resource type="PackedScene" uid="uid://nov7vvj5q4bl" path="res://models/control/radio.tscn" id="15_sdm6f"]
+[ext_resource type="Shader" path="res://misc/robocam.gdshader" id="16_f58n0"]
+[ext_resource type="Shader" path="res://misc/mainCameraShader.gdshader" id="19_cccnd"]
+[ext_resource type="Script" path="res://scripts/robot.gd" id="21_l1gf7"]
+[ext_resource type="Texture2D" uid="uid://124hdnugqkwh" path="res://models/planetTexture.png" id="21_rvjf8"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_gbr4p"]
+viewport_path = NodePath("DEBUG")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y7sb0"]
+shader = ExtResource("19_cccnd")
+shader_parameter/effect_amount = -0.25
+shader_parameter/aberration_amount = 0.6
+shader_parameter/screen_size = Vector2(320, 180)
+shader_parameter/show_curvature = true
+shader_parameter/curvature_x_amount = 6.0
+shader_parameter/curvature_y_amount = 4.0
+shader_parameter/corner_color = Vector4(0, 0, 0, 1)
+shader_parameter/show_vignette = true
+shader_parameter/vignette_opacity = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k7wrw"]
+albedo_color = Color(0.407843, 0, 0, 1)
+albedo_texture = ExtResource("7_uhy4e")
+metallic_specular = 0.0
+roughness = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_svf8n"]
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_qgg8q"]
+_surfaces = [{
+"aabb": AABB(-3.96469, 0, -2, 7.92939, 4, 4.52407),
+"format": 34896613377,
+"index_count": 108,
+"index_data": PackedByteArray("BQAKABAABQAGAAoADQAPAAsADQARAA8AAAAIAAIAAAAEAAgAEwAAAAIAEwAMAAAAEgAHAAkAEgAOAAcAEAAJAAUAEAASAAkACAAHAAIACAAJAAcAAAAFAAQAAAAGAAUABAAJAAgABAAFAAkADAAGAAAADAAKAAYADgACAAcADgATAAIAAwAMABMAAwABAAwAEgANAA4AEgARAA0AEQAQAA8AEQASABAADwAKAAsADwAQAAoAAwALAAEAAwANAAsAAQAKAAwAAQALAAoADQATAA4ADQADABMA"),
+"lods": [1.61822, PackedByteArray("BQAKABAABQAGAAoADQAPAAsAAwANAAsAEgAPAA0AAwALAAoAAwAKAAYAAwAGAAIADQADAA4ADgADAAIADgACAAcAAgAFAAkAAgAGAAUACQAHAAIAEgAHAAkAEgAOAAcAEAAJAAUAEAASAAkAEgANAA4ADwASABAADwAKAAsADwAQAAoA")],
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 20,
+"vertex_data": PackedByteArray("5+3//wAAAAChkQAAAAAAABcS//8AAAAAXW4AAAAAAABH3v//FloAAHPk3OjOfgAA7PnU6MkTAAASBtToyRMAALch//8WWgAAixvc6M5+AAD//xsQFqUAAEH2AADjrwAAjpdwEAAAAAC9CQAA468AAAAAGxAWpQAAs+EAALn5AAA352UQ//8AAEseAAC5+QAAxxhlEP//AABwaHAQAAAAAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_ty1a8"]
+resource_name = "base2_Cube"
+_surfaces = [{
+"aabb": AABB(-3.96469, 0, -2, 7.92939, 4, 4.52407),
+"attribute_data": PackedByteArray("///Wt5WAXo7//9a3lYBejh/hsNcf4bDXH+Gw1///Tfw9jWCO//9N/D2NYI4h4d/fIeHf3yHh39+egFSKnoBUip6AVIodgFKJ/39Uif9/VIlvixqER/tOtASAXI5fjSiCnfv//2KOVo5LgYOBHI1ZihyNWYocjVmKYo5SiVyOYIlcjmCJRoO8g/3Me7T9zHu0/cx7tC6OF4jmyn245sp9uObKfbgV48LVFePC1RXjwtUeyS37Hskt+x7JLfvKykn/yspJ/8rKSf81gOmHh74Ivoe+CL6Hvgi+EoD/fwq8a7sKvGu7CIyxiU29jvRNvY70Tb2O9FKO/3+Cuvz2grr89nqCsYkO47DhDuOw4Q7jsOH//038IeHf3yHh398h4d/fR/tOtASAXI5cjmCJ/cx7tObKfbgeyS37yspJ/4e+CL6Hvgi+Crxru4K6/PaCuvz2"),
+"format": 34896613399,
+"index_count": 108,
+"index_data": PackedByteArray("FAAlADkAFAAXACUALAA0ACYALAA7ADQAAQAcAAgAAQAPABwAQQAAAAcAQQApAAAAQAAaACEAQAAyABoANgAeABEANgA9AB4AHQAZAAoAHQAgABkAAwATABAAAwAWABMADgAfABsADgASAB8AKwAVAAIAKwAjABUAMAAJABgAMABDAAkACwApAEEACwAEACkAPwAuADEAPwA8AC4AOgA3ADMAOgA+ADcANQAkACgANQA4ACQADAAmAAUADAAsACYABgAiACoABgAnACIALQBCAC8ALQANAEIA"),
+"lods": [1.61822, PackedByteArray("FAAlADkAFAAXACUALAA0ACYADAAsACYAUwBPACwARwAmACIARQAiAEgARQBIAEQALABGAC8ALwBGAEQALwBEABgACAASAEoACABJABIASgAZAAgAQAAaACEAQAAyABoANgAeABEANgA9AB4AUgBNAE4AMwA+ADcAUABLAEwAUABRAEsA")],
+"material": SubResource("StandardMaterial3D_svf8n"),
+"primitive": 3,
+"uv_scale": Vector4(1.99977, 1.99977, 0, 0),
+"vertex_count": 84,
+"vertex_data": PackedByteArray("5+3//wAA///n7f//AAD2/+ft//8AAMve5+3//wAAVdmhkQAAAAD//6GRAAAAACPOoZEAAAAA59cXEv//AAD//xcS//8AAP//FxL//wAA1v8XEv//AAB52V1uAAAAAP//XW4AAAAArdJdbgAAAAAg9kfe//8WWtD/R97//xZa9P9H3v//Floa23Pk3OjOfv//c+Tc6M5+zv9z5Nzozn5d2nPk3OjOfgC17PnU6MkTwt7s+dToyRPr2Oz51OjJExG1EgbU6MkTg/8SBtToyROm2RIG1OjJE8S1tyH//xZa5v+3If//Flr7/7ch//8WWkTaixvc6M5+//+LG9zozn7j/4sb3OjOfmvaixvc6M5+Gbb//xsQFqVm2v//GxAWpb/e//8bEBalw7r//xsQFqXUtEH2AADjryjUQfYAAOOvj9pB9gAA46+Nuo6XcBAAAP//jpdwEAAAvteOl3AQAAC/3r0JAADjrxDUvQkAAOOvPO+9CQAA469w4QAAGxAWpfzuAAAbEBal+f8AABsQFqWC4QAAGxAWpf60s+EAALn5ELKz4QAAufm11LPhAAC5+Wa7N+dlEP////8352UQ//8sszfnZRD//4G7N+dlEP//wrRLHgAAuflszUseAAC5+ZXTSx4AALn5wuDHGGUQ/////8cYZRD///nNxxhlEP//3eDHGGUQ//9RtXBocBAAAP//cGhwEAAAyPVwaHAQAAD//xcS//8AAEHwXW4AAAAA6PNdbgAAAABg5V1uAAAAAG/V7PnU6MkTCers+dToyRPM5Isb3OjOfv////8bEBaljMFB9gAA46+svL0JAADjrzzeAAAbEBalc9mz4QAAufnsybPhAAC5+Xi6N+dlEP//YLvHGGUQ///T4McYZRD//wDa9b0JwgmA+r+FQ3Q6kj41A/S2Csl0S0VaHEnfQMG/PMACgP2/ukhtVaR8b76Uw2q8/lEAV8dMgFYfgFSvC4D5v/E8AAUC4gAAH4BUr5w9RAQhqANEoEVMOfc+xgItqDpEPUjyVXZ8Rb5jxlTXEIBZrwOA/b/Ue7K9AuIAABKAWa+te4+9Vccd1x5XXTrWSJA3q2vDPP+nb0PkUw1Wy1cMOkdrvjxYuKbHwkeAQTtI4TfFUxxWbkMbXzNOmXMQQ3Jf7Ug3VT5OjXP6w9/XnGWSbpNUtVXQbNE8AuIAAENmdW7/bNM88qcyQ51xg2wpU2pWx00PdP9/+53NcXps2E38cwbFotdqv5TAV0zoVi3V98gYrHLoHSn0TjqomvluA0BePlJHNiHfzRAvbr/sik/qMJBkzDYETA5pKTLqY9VEFHNSeoVNYHsXTSNPFI5dZ6dt")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_qgg8q")
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_a6rdf"]
+radius = 1.062
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_re54v"]
+size = Vector3(4.82, 3.20584, 2.515)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8qmek"]
+render_priority = 0
+shader = ExtResource("14_xjbao")
+shader_parameter/shift = Vector3(-0.98, 0, 0)
+shader_parameter/time_shift_scale = Vector3(0.07, 0, 0)
+shader_parameter/scan_power = Vector3(1.8, 0, 0)
+shader_parameter/scan_color = Vector4(0, 1, 0, 1)
+shader_parameter/scan_line_size = 0.25
+shader_parameter/scan_line_delay = 0.373
+
+[sub_resource type="SphereMesh" id="SphereMesh_ohxxk"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kx3nk"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_jwhm8"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_mddlj"]
+viewport_path = NodePath("ROBOT/RobotView")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wrgb6"]
+shader = ExtResource("9_1a1kl")
+shader_parameter/fisheye_strength = 1.25
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_6g7pp"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rhucb"]
+shader = ExtResource("19_cccnd")
+shader_parameter/effect_amount = 1.0
+shader_parameter/aberration_amount = 0.0
+shader_parameter/screen_size = Vector2(320, 180)
+shader_parameter/show_curvature = true
+shader_parameter/curvature_x_amount = 6.0
+shader_parameter/curvature_y_amount = 4.0
+shader_parameter/corner_color = Vector4(0, 0, 0, 1)
+shader_parameter/show_vignette = true
+shader_parameter/vignette_opacity = 0.2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xok1d"]
+shader = ExtResource("16_f58n0")
+shader_parameter/screen_size = Vector2(320, 180)
+shader_parameter/show_curvature = true
+shader_parameter/curvature_x_amount = 3.0
+shader_parameter/curvature_y_amount = 3.0
+shader_parameter/corner_color = Vector4(0, 0, 0, 1)
+shader_parameter/show_vignette = true
+shader_parameter/vignette_opacity = 0.2
+shader_parameter/show_horizontal_scan_lines = true
+shader_parameter/horizontal_scan_lines_amount = 180.0
+shader_parameter/horizontal_scan_lines_opacity = 1.0
+shader_parameter/show_vertical_scan_lines = false
+shader_parameter/vertical_scan_lines_amount = 320.0
+shader_parameter/vertical_scan_lines_opacity = 1.0
+shader_parameter/boost = 1.2
+shader_parameter/aberration_amount = 4.38
+
+[sub_resource type="Environment" id="Environment_14ppn"]
+background_mode = 1
+background_color = Color(0.173002, 0.105375, 0.105603, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3i7fa"]
+albedo_color = Color(0, 1, 1, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_kq8cv"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ja1qx"]
+
+[sub_resource type="Environment" id="Environment_ludtw"]
+background_mode = 1
+background_color = Color(0.493545, 0.493546, 0.493546, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_majf1"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_iqw13"]
+radius = 1.22872
+height = 3.19263
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_64brk"]
+albedo_texture = ExtResource("21_rvjf8")
+uv1_scale = Vector3(6, 6, 6)
+uv2_scale = Vector3(2.085, 2.085, 2.085)
+
+[sub_resource type="SphereMesh" id="SphereMesh_b5747"]
+radial_segments = 16
+rings = 16
+
+[node name="Node3D" type="Node3D"]
+
+[node name="CONTROL" type="Node3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, -200)
+
+[node name="DEBUGSprite" type="Sprite3D" parent="CONTROL"]
+transform = Transform3D(-0.650578, -0.0169121, 0.0388314, -0.0198936, 0.56219, -0.0257875, -0.0172097, -0.0105387, -1.43796, -0.879246, 2.45517, -0.010187)
+texture = SubResource("ViewportTexture_gbr4p")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="CONTROL"]
+transform = Transform3D(1, 0, -1.42109e-14, 0, 1, 0, 1.42109e-14, 0, 1, 0.443451, 2.98599, 0.76135)
+light_energy = 16.0
+light_indirect_energy = 16.0
+light_volumetric_fog_energy = 16.0
+light_size = 1.0
+spot_range = 4096.0
+spot_attenuation = 0.82
+spot_angle = 180.0
+spot_angle_attenuation = 6.49801
+
+[node name="CameraControl" type="Camera3D" parent="CONTROL"]
+transform = Transform3D(-1, 5.15512e-08, -7.06062e-08, 4.81029e-08, 0.998847, 0.0479955, 7.2999e-08, 0.0479955, -0.998847, -2.6319e-09, 1.95442, -1.46075)
+fov = 77.659
+near = 0.025
+script = ExtResource("1_vfsca")
+
+[node name="Control" type="Control" parent="CONTROL/CameraControl"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainCamSahder" type="ColorRect" parent="CONTROL/CameraControl/Control"]
+material = SubResource("ShaderMaterial_y7sb0")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayerControler" type="Node3D" parent="CONTROL"]
+script = ExtResource("2_rhms6")
+
+[node name="VolanteControler" type="Node3D" parent="CONTROL/PlayerControler"]
+script = ExtResource("3_d4rv8")
+
+[node name="VolanteSonido" type="AudioStreamPlayer3D" parent="CONTROL/PlayerControler/VolanteControler"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.58883, 0, 6.94502e-08)
+stream = ExtResource("4_m1ry4")
+volume_db = -80.0
+autoplay = true
+
+[node name="MarchaControler" type="Node3D" parent="CONTROL/PlayerControler"]
+script = ExtResource("4_dlm6g")
+
+[node name="EngineSonido" type="AudioStreamPlayer3D" parent="CONTROL/PlayerControler/MarchaControler"]
+stream = ExtResource("6_v5ub7")
+volume_db = -50.0
+autoplay = true
+
+[node name="MODELS" type="Node3D" parent="CONTROL"]
+
+[node name="PARED" parent="CONTROL/MODELS" instance=ExtResource("5_dwlgk")]
+transform = Transform3D(1, 0, -1.50996e-07, 0, 1, 0, -1.50996e-07, 0, -1, -0.841, -0.751, -1.025)
+
+[node name="Pared" parent="CONTROL/MODELS/PARED" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00751877, 1, 0.00726318)
+material_override = ExtResource("6_dot7u")
+
+[node name="Tubería_001" parent="CONTROL/MODELS/PARED" index="1"]
+material_override = ExtResource("6_dot7u")
+
+[node name="Tubería_002" parent="CONTROL/MODELS/PARED" index="2"]
+material_override = ExtResource("6_dot7u")
+
+[node name="Tubería_003" parent="CONTROL/MODELS/PARED" index="3"]
+material_override = ExtResource("6_dot7u")
+
+[node name="Tubería_004" parent="CONTROL/MODELS/PARED" index="4"]
+material_override = ExtResource("6_dot7u")
+
+[node name="Tubería_005" parent="CONTROL/MODELS/PARED" index="5"]
+material_override = ExtResource("6_dot7u")
+
+[node name="Tubería_006" parent="CONTROL/MODELS/PARED" index="6"]
+material_override = ExtResource("6_dot7u")
+
+[node name="BézierCircle" parent="CONTROL/MODELS/PARED" index="7"]
+material_override = SubResource("StandardMaterial3D_k7wrw")
+
+[node name="Cube" parent="CONTROL/MODELS/PARED" index="8"]
+material_override = ExtResource("6_dot7u")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="CONTROL/MODELS/PARED/Cube" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8.38045)
+light_color = Color(0.788235, 0.443137, 0.121569, 1)
+light_energy = 0.435
+light_indirect_energy = 5.424
+spot_angle = 0.0
+
+[node name="BASE" type="MeshInstance3D" parent="CONTROL/MODELS"]
+transform = Transform3D(0.4, 2.22545e-08, 9.72776e-16, 0, -1.74846e-08, 0.4, 2.22545e-08, -0.4, -1.74846e-08, 0, 1.2, 1)
+material_override = ExtResource("6_dot7u")
+mesh = SubResource("ArrayMesh_ty1a8")
+skeleton = NodePath("")
+
+[node name="Volante" type="Node3D" parent="CONTROL/MODELS/BASE"]
+transform = Transform3D(1.43619, -0.232392, -0.548981, 0.57535, 0.91524, 1.11773, 0.156075, -1.23546, 0.931296, 1.29919, 3.93756, 1.06855)
+
+[node name="Volante" parent="CONTROL/MODELS/BASE/Volante" instance=ExtResource("5_v6631")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
+material_override = ExtResource("6_dot7u")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="CONTROL/MODELS/BASE/Volante/Volante"]
+gravity_scale = 0.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CONTROL/MODELS/BASE/Volante/Volante/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("CylinderShape3D_a6rdf")
+
+[node name="Marcha" type="Node3D" parent="CONTROL/MODELS/BASE"]
+transform = Transform3D(1.66218, -0.00041353, -0.0324408, -0.0254947, 1.01146, -1.31917, 0.020065, 1.31942, 1.01126, -0.795517, 2.89018, 0.716484)
+
+[node name="BasePalanca" parent="CONTROL/MODELS/BASE/Marcha" instance=ExtResource("6_22uvd")]
+transform = Transform3D(0.4, 0, -4.44089e-16, 3.55271e-15, 0.4, 2.98023e-08, -8.88178e-16, -2.98023e-08, 0.4, -0.729301, 0, -0.00803328)
+material_override = ExtResource("6_dot7u")
+
+[node name="RuedaPal" parent="CONTROL/MODELS/BASE/Marcha" instance=ExtResource("8_aurj8")]
+transform = Transform3D(0.4, 0, 0, 0, 0.34641, 0.2, 0, -0.2, 0.34641, -0.729301, 0, -0.00803328)
+material_override = ExtResource("6_dot7u")
+
+[node name="Marcha" parent="CONTROL/MODELS/BASE/Marcha" instance=ExtResource("7_6fp2c")]
+transform = Transform3D(-1.74846e-08, -0.4, 0, 0.34641, -1.51421e-08, 0.2, -0.2, 8.74228e-09, 0.34641, -0.729301, 0, -0.00803328)
+material_override = ExtResource("6_dot7u")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="CONTROL/MODELS/BASE/Marcha/Marcha"]
+gravity_scale = 0.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CONTROL/MODELS/BASE/Marcha/Marcha/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 0.999993, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_re54v")
+
+[node name="Radar" parent="CONTROL/MODELS/BASE" instance=ExtResource("12_dqscn")]
+transform = Transform3D(1.38273, -6.18114e-08, -3.47154e-08, 7.69302e-08, 1.11099, 0.623969, -1.45071e-15, -0.777578, 0.891517, -1.36074, 0.119123, 1.83092)
+material_override = ExtResource("6_dot7u")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="CONTROL/MODELS/BASE/Radar"]
+transform = Transform3D(1.31134e-10, -1.225, -4.68118e-15, 4.37114e-11, 2.34059e-15, 1.225, -0.001, -1.60639e-07, 5.35465e-08, 0, 1.006, 0.965)
+material_override = SubResource("ShaderMaterial_8qmek")
+mesh = SubResource("SphereMesh_ohxxk")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CONTROL/MODELS/BASE/Radar/MeshInstance3D2"]
+transform = Transform3D(0.07, 0, 0, 0, 0.07, 0, 0, 0, 0.07, -236.409, -0.0786544, 0.22999)
+material_override = SubResource("StandardMaterial3D_kx3nk")
+mesh = SubResource("SphereMesh_jwhm8")
+
+[node name="PivotPantalla" type="Node3D" parent="CONTROL/MODELS/BASE"]
+transform = Transform3D(0.976613, -0.126273, -0.174016, 0.210289, 0.392432, 0.895418, -0.044778, -0.911071, 0.409807, 1.19124, 2.21699, 2.67432)
+
+[node name="Pantalla" parent="CONTROL/MODELS/BASE/PivotPantalla" instance=ExtResource("13_qwvuv")]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.361218, 0, -0.258819, 1.34808, -0.0222166, -2.56828, -3.59649)
+material_override = ExtResource("6_dot7u")
+
+[node name="Sprite3D" type="Sprite3D" parent="CONTROL/MODELS/BASE/PivotPantalla/Pantalla"]
+transform = Transform3D(-1.7878e-08, 0.564, 0, -0.409, -2.46532e-08, 0, 0, 0, 0.872, 2.45912e-09, 1.51719, 3.0156)
+texture = SubResource("ViewportTexture_mddlj")
+
+[node name="radio" parent="CONTROL/MODELS/BASE" instance=ExtResource("15_sdm6f")]
+transform = Transform3D(-0.479798, -0.0116508, -0.00762587, 0.00358129, -0.35728, 0.320528, -0.0134562, 0.320337, 0.357216, -0.314217, 3.51795, 0.473065)
+
+[node name="Radio" parent="CONTROL/MODELS/BASE/radio" index="0"]
+material_override = ExtResource("6_dot7u")
+
+[node name="RadioLight" parent="CONTROL/MODELS/BASE/radio" index="1"]
+transform = Transform3D(1, 0, 1.86265e-09, -1.86265e-09, 1, -1.851e-08, 0, -1.83936e-08, 1, -0.00354004, 0.0840836, 0.0937643)
+material_override = ExtResource("6_dot7u")
+
+[node name="RadioSound" parent="CONTROL/MODELS/BASE/radio" index="2"]
+material_override = ExtResource("6_dot7u")
+
+[node name="RadioLight_001" parent="CONTROL/MODELS/BASE/radio" index="3"]
+transform = Transform3D(1, 0, 1.86265e-09, -1.86265e-09, 1, -1.851e-08, 0, -1.83936e-08, 1, 0.37532, 0.0840831, 0.0937643)
+material_override = ExtResource("6_dot7u")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="CONTROL"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0649452, 2.17884, -0.00498534)
+light_color = Color(0.784314, 0.458824, 0, 1)
+light_energy = 0.301
+light_size = 4.055
+omni_range = 1.804
+
+[node name="Virtual" type="Control" parent="."]
+visibility_layer = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Shaders" type="Control" parent="Virtual"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FishEye" type="TextureRect" parent="Virtual/Shaders"]
+visible = false
+material = SubResource("ShaderMaterial_wrgb6")
+layout_mode = 2
+offset_right = 1024.0
+offset_bottom = 768.0
+texture = SubResource("CompressedTexture2D_6g7pp")
+
+[node name="ColorRect" type="ColorRect" parent="Virtual/Shaders"]
+visible = false
+material = SubResource("ShaderMaterial_rhucb")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Area_Marcha" type="ColorRect" parent="Virtual"]
+layout_mode = 0
+offset_left = 733.0
+offset_top = 289.0
+offset_right = 773.0
+offset_bottom = 329.0
+scale = Vector2(7.10269, 15.9745)
+color = Color(1, 1, 1, 0)
+
+[node name="Area_Volante" type="ColorRect" parent="Virtual"]
+layout_mode = 0
+offset_left = 31.0
+offset_top = 391.0
+offset_right = 71.0
+offset_bottom = 431.0
+scale = Vector2(10.0959, 8.88142)
+color = Color(1, 1, 1, 0)
+
+[node name="SteerPivot" type="ColorRect" parent="Virtual"]
+light_mask = 0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -290.0
+offset_top = 145.0
+offset_right = -250.0
+offset_bottom = 185.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
+
+[node name="DEBUG" type="SubViewport" parent="."]
+size = Vector2i(124, 124)
+
+[node name="CameraRobot" type="Camera3D" parent="DEBUG"]
+transform = Transform3D(-3.85399e-08, -0.471828, 0.881691, -2.06242e-08, 0.881691, 0.471828, -1, 1.77636e-15, -4.37114e-08, 62.8144, 35.1514, 0)
+size = 20.115
+
+[node name="ROBOT" type="CharacterBody3D" parent="."]
+transform = Transform3D(-1.53, 0, -1.33757e-07, 0, 1.53, 0, 1.33757e-07, 0, -1.53, 0, 25, 0)
+motion_mode = 1
+script = ExtResource("21_l1gf7")
+
+[node name="RobotCamTransform" type="Node3D" parent="ROBOT"]
+transform = Transform3D(1, 0, 0, 0, 1, 1.49012e-08, 0, -1.49012e-08, 1, 0, 0, 0)
+
+[node name="RobotView" type="SubViewport" parent="ROBOT"]
+mesh_lod_threshold = 0.0
+canvas_item_default_texture_filter = 2
+sdf_scale = 0
+size = Vector2i(420, 420)
+
+[node name="Shaders" type="Control" parent="ROBOT/RobotView"]
+custom_minimum_size = Vector2(420, 420)
+layout_direction = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="CRT_Shader" type="ColorRect" parent="ROBOT/RobotView/Shaders"]
+material = SubResource("ShaderMaterial_xok1d")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CameraRobot" type="Camera3D" parent="ROBOT/RobotView"]
+transform = Transform3D(4.37114e-08, 1, -8.74228e-08, 1, -4.37114e-08, 2.5411e-21, -3.82137e-15, -8.74228e-08, -1, 0, 24, 0)
+environment = SubResource("Environment_14ppn")
+far = 36.72
+script = ExtResource("4_x7owj")
+
+[node name="Model" type="MeshInstance3D" parent="ROBOT"]
+transform = Transform3D(1, 0, 0, 0, 1, 2.98023e-08, 0, -2.98023e-08, 1, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_3i7fa")
+mesh = SubResource("CapsuleMesh_kq8cv")
+
+[node name="Model" type="MeshInstance3D" parent="ROBOT/Model"]
+transform = Transform3D(0.601277, 0, 0, -1.05879e-22, 0.073738, -0.710462, 0, 0.701452, 0.0746852, 0, 0.158081, -0.528215)
+mesh = SubResource("CapsuleMesh_kq8cv")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="ROBOT"]
+gravity_scale = 0.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ROBOT/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 1.49012e-08, 0, -1.49012e-08, 1, 0, 0, 0)
+shape = SubResource("SphereShape3D_ja1qx")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ROBOT"]
+transform = Transform3D(1, 0, 0, 0, 1, 1.49012e-08, 0, -1.49012e-08, 1, 0, 0, 0)
+shape = SubResource("SphereShape3D_ja1qx")
+disabled = true
+
+[node name="WORLD" type="StaticBody3D" parent="."]
+transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 0, -1.49929, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="WORLD"]
+environment = SubResource("Environment_ludtw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WORLD"]
+shape = SubResource("SphereShape3D_majf1")
+
+[node name="rober" parent="WORLD" instance=ExtResource("1_unkk4")]
+transform = Transform3D(0.02, 0, 0, 0, 0.02, 0, 0, 0, 0.02, -0.181661, 0.325939, 0.722359)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="WORLD/rober"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WORLD/rober/StaticBody3D"]
+shape = SubResource("CapsuleShape3D_iqw13")
+
+[node name="planetMesh" type="MeshInstance3D" parent="WORLD"]
+material_override = SubResource("StandardMaterial3D_64brk")
+mesh = SubResource("SphereMesh_b5747")
+skeleton = NodePath("../..")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="WORLD"]
+transform = Transform3D(0.02, 0, 0, 0, 0.02, 0, 0, 0, 0.02, 0, 0.7, 0)
+light_color = Color(1, 0.811765, 0.654902, 1)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="WORLD"]
+transform = Transform3D(0.02, 0, 0, 0, 0.02, 0, 0, 0, 0.02, 0, 0.52, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WORLD"]
+transform = Transform3D(0.02, 0, 0, 0, -0.00144457, 0.0199478, 0, -0.0199478, -0.00144457, 0, 0.892204, 0)
+
+[node name="Area3D" type="Area3D" parent="WORLD"]
+gravity_space_override = 3
+gravity_point = true
+gravity_point_center = Vector3(0, 0, 0)
+gravity_direction = Vector3(0, 0, 0)
+
+[connection signal="INPUT_MARCHA" from="CONTROL/CameraControl" to="CONTROL/PlayerControler" method="_on_input_marcha"]
+[connection signal="INPUT_VOLANTE" from="CONTROL/CameraControl" to="CONTROL/PlayerControler" method="_on_input_volante"]
+[connection signal="RELEASE" from="CONTROL/CameraControl" to="CONTROL/PlayerControler" method="_on_input_release"]
+[connection signal="finished" from="CONTROL/PlayerControler/VolanteControler/VolanteSonido" to="CONTROL/PlayerControler/VolanteControler" method="_on_audio_finished"]
+[connection signal="finished" from="CONTROL/PlayerControler/MarchaControler/EngineSonido" to="CONTROL/PlayerControler/MarchaControler" method="_on_engine_sonido_finished"]
+[connection signal="mouse_entered" from="Virtual/Area_Marcha" to="CONTROL/CameraControl" method="_on_area_marcha_mouse_entered"]
+[connection signal="mouse_exited" from="Virtual/Area_Marcha" to="CONTROL/CameraControl" method="_on_area_marcha_mouse_exited"]
+[connection signal="mouse_entered" from="Virtual/Area_Volante" to="CONTROL/CameraControl" method="_on_area_volante_mouse_entered"]
+[connection signal="mouse_exited" from="Virtual/Area_Volante" to="CONTROL/CameraControl" method="_on_area_volante_mouse_exited"]
+
+[editable path="CONTROL/MODELS/PARED"]
+[editable path="CONTROL/MODELS/BASE/radio"]

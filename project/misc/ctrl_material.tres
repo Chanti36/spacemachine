@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://bt4qlttenejkj"]
+
+[ext_resource type="Texture2D" uid="uid://dnnk8ob1f6mco" path="res://models/M.A.R_marsTextures.png" id="1_ierk5"]
+
+[resource]
+albedo_texture = ExtResource("1_ierk5")
+metallic_specular = 0.0
+roughness = 0.0

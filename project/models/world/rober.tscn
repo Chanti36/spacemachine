@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://ddwsa2td4q6d0"]
+
+[ext_resource type="PackedScene" uid="uid://cc4y2wjssnwoq" path="res://models/world/imports/rober.fbx" id="1_kfds3"]
+[ext_resource type="Texture2D" uid="uid://b0ba68hb570ec" path="res://models/worldTextures.png" id="2_67d8g"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3lqqg"]
+albedo_texture = ExtResource("2_67d8g")
+metallic_specular = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mpxit"]
+albedo_color = Color(0.244776, 0.244776, 0.244776, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y6x41"]
+albedo_texture = ExtResource("2_67d8g")
+
+[node name="rober" instance=ExtResource("1_kfds3")]
+
+[node name="base" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_3lqqg")
+
+[node name="cuello" parent="." index="1"]
+material_override = SubResource("StandardMaterial3D_3lqqg")
+
+[node name="cabeza" parent="." index="2"]
+material_override = SubResource("StandardMaterial3D_mpxit")
+
+[node name="cuerpo" parent="." index="3"]
+material_override = SubResource("StandardMaterial3D_3lqqg")
+
+[node name="ruedas1" parent="." index="4"]
+material_override = SubResource("StandardMaterial3D_y6x41")
+
+[node name="ruedas2" parent="." index="5"]
+material_override = SubResource("StandardMaterial3D_y6x41")
+
+[node name="ruedas3" parent="." index="6"]
+material_override = SubResource("StandardMaterial3D_y6x41")
+
+[node name="alas" parent="." index="7"]
+material_override = SubResource("StandardMaterial3D_3lqqg")
+
+[node name="cuello1" parent="." index="8"]
+material_override = SubResource("StandardMaterial3D_mpxit")

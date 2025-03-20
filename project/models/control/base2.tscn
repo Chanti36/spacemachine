@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://c1y0doi4t00ce"]
+
+[ext_resource type="PackedScene" uid="uid://cmgxx4cie7m6v" path="res://models/control/import/base2.glb" id="1_7es6e"]
+
+[node name="base2" instance=ExtResource("1_7es6e")]

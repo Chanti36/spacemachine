@@ -1,0 +1,165 @@
+[gd_scene load_steps=20 format=3 uid="uid://cx3xqog4ayc20"]
+
+[ext_resource type="Script" path="res://scripts/cam_controls.gd" id="1_vfsca"]
+[ext_resource type="Script" path="res://scripts/player_controler.gd" id="2_rhms6"]
+[ext_resource type="Script" path="res://scripts/volante_controler.gd" id="3_d4rv8"]
+[ext_resource type="Script" path="res://scenes/marcha_controler.gd" id="4_dlm6g"]
+[ext_resource type="Script" path="res://scripts/cam_robot.gd" id="4_x7owj"]
+
+[sub_resource type="Environment" id="Environment_13n0l"]
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_im113"]
+
+[sub_resource type="Compositor" id="Compositor_dpho8"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_7j57u"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4jk52"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="Environment" id="Environment_87kyg"]
+background_mode = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_1a5en"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_xiqyx"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_l7ij8"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_xaatx"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_re54v"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_nwm6m"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_mddlj"]
+viewport_path = NodePath("ROBOT/RobotView")
+
+[sub_resource type="BoxMesh" id="BoxMesh_aqsyg"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="ESCENA" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="ESCENA"]
+environment = SubResource("Environment_13n0l")
+camera_attributes = SubResource("CameraAttributesPractical_im113")
+compositor = SubResource("Compositor_dpho8")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="ESCENA/WorldEnvironment"]
+transform = Transform3D(-0.907259, -0.00115134, 0.42057, 0.261815, 0.781053, 0.56693, -0.32914, 0.624464, -0.708316, 0, 0, 0)
+
+[node name="TEST" type="MeshInstance3D" parent="ESCENA"]
+transform = Transform3D(0.976851, 0.0231021, -0.212669, 0.0412248, 0.955187, 0.29312, 0.209912, -0.295102, 0.932123, 0.794109, 1.45441, 14.623)
+mesh = SubResource("CapsuleMesh_7j57u")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_4jk52")
+
+[node name="TEST2" type="MeshInstance3D" parent="ESCENA"]
+transform = Transform3D(0.711891, -0.607359, -0.3526, 0.670185, 0.737584, 0.0825894, 0.209912, -0.295102, 0.932123, -1.06978, 1.45441, 14.623)
+mesh = SubResource("CapsuleMesh_7j57u")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_4jk52")
+
+[node name="CONTROL" type="Node3D" parent="."]
+
+[node name="CameraControl" type="Camera3D" parent="CONTROL"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1.10793, -3)
+environment = SubResource("Environment_87kyg")
+script = ExtResource("1_vfsca")
+
+[node name="PlayerControler" type="Node3D" parent="CONTROL"]
+script = ExtResource("2_rhms6")
+
+[node name="VolanteControler" type="Node3D" parent="CONTROL/PlayerControler"]
+script = ExtResource("3_d4rv8")
+
+[node name="MarchaControler" type="Node3D" parent="CONTROL/PlayerControler"]
+script = ExtResource("4_dlm6g")
+
+[node name="MODELS" type="Node3D" parent="CONTROL"]
+
+[node name="Volante" type="Node3D" parent="CONTROL/MODELS"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0.8, -1)
+
+[node name="Volante" type="MeshInstance3D" parent="CONTROL/MODELS/Volante"]
+transform = Transform3D(1, 0, 0, 0, 0.365, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("CylinderMesh_1a5en")
+skeleton = NodePath("")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="CONTROL/MODELS/Volante/Volante"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 1.49012e-08, 1, 0, 0, 0)
+gravity_scale = 0.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CONTROL/MODELS/Volante/Volante/RigidBody3D"]
+shape = SubResource("CylinderShape3D_xiqyx")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CONTROL/MODELS/Volante/Volante"]
+transform = Transform3D(0.102651, 0, 0, 0, 1.81428, 0, 0, 0, 0.185718, 0.00729465, 1.37605, 0.447615)
+mesh = SubResource("BoxMesh_l7ij8")
+
+[node name="Marcha" type="Node3D" parent="CONTROL/MODELS"]
+transform = Transform3D(1, 0, 0, 0, 0.777256, -0.629185, 0, 0.629185, 0.777256, -1.55995, 0, 0)
+
+[node name="Marcha" type="MeshInstance3D" parent="CONTROL/MODELS/Marcha"]
+transform = Transform3D(0.216688, 0, 0, 0, 0.216688, 0, 0, 0, 3.58695, 0, 0, 0)
+mesh = SubResource("BoxMesh_xaatx")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="CONTROL/MODELS/Marcha/Marcha"]
+gravity_scale = 0.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CONTROL/MODELS/Marcha/Marcha/RigidBody3D"]
+shape = SubResource("BoxShape3D_re54v")
+
+[node name="Pantalla" type="MeshInstance3D" parent="CONTROL/MODELS"]
+transform = Transform3D(1, 0, 0, 0, 0.238076, 0.971247, 0, -0.971247, 0.238076, 0, 1.74157, 0)
+mesh = SubResource("PlaneMesh_nwm6m")
+skeleton = NodePath("../../..")
+
+[node name="Sprite3D" type="Sprite3D" parent="CONTROL/MODELS/Pantalla"]
+transform = Transform3D(-6.68784e-08, 1.53, 6.68784e-08, 0, -6.68784e-08, 1.53, 1.53, 6.68784e-08, 2.92335e-15, 0, 0.1, 0)
+texture = SubResource("ViewportTexture_mddlj")
+
+[node name="Mesa" type="MeshInstance3D" parent="CONTROL/MODELS"]
+transform = Transform3D(5.86, 0, 0, 0, 0.682833, 1.53057, 0, -1.66005, 0.629576, -0.202117, 1.04662, 1.02486)
+mesh = SubResource("BoxMesh_aqsyg")
+skeleton = NodePath("../../..")
+
+[node name="ROBOT" type="Node3D" parent="."]
+transform = Transform3D(1.53, 0, 0, 0, -1.48601, 0.364256, 0, -0.364256, -1.48601, 0, 0.0923833, 8.63653)
+
+[node name="RobotCamTransform" type="Node3D" parent="ROBOT"]
+transform = Transform3D(1, 0, 0, 0, 1, 1.49012e-08, 0, -1.49012e-08, 1, 0, 0, 0)
+
+[node name="RobotView" type="SubViewport" parent="ROBOT"]
+size = Vector2i(124, 124)
+
+[node name="CameraRobot" type="Camera3D" parent="ROBOT/RobotView"]
+transform = Transform3D(4.37114e-08, 1, -8.74228e-08, 1, -4.37114e-08, 0, -3.82137e-15, -8.74228e-08, -1, 0, 0, 3.14556)
+script = ExtResource("4_x7owj")
+
+[node name="Virtual" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Virtual"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = 25.0
+offset_right = 20.0
+offset_bottom = 65.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="INPUT_MARCHA" from="CONTROL/CameraControl" to="CONTROL/PlayerControler" method="_on_input_marcha"]
+[connection signal="INPUT_VOLANTE" from="CONTROL/CameraControl" to="CONTROL/PlayerControler" method="_on_input_volante"]
+[connection signal="RELEASE" from="CONTROL/CameraControl" to="CONTROL/PlayerControler" method="_on_input_release"]

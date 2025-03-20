@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://nov7vvj5q4bl"]
+
+[ext_resource type="PackedScene" uid="uid://cmxmiqodyylhc" path="res://models/control/import/radio.glb" id="1_a4sj2"]
+
+[node name="radio" instance=ExtResource("1_a4sj2")]
