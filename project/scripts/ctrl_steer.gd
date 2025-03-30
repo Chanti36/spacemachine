@@ -40,7 +40,7 @@ func SteerCtrl(delta):
 	
 	if lastMousepos.distance_to(mousePos) > 1:
 		if $VolanteSonido.volume_db < -10:
-			$VolanteSonido.volume_db += delta * 200
+			$VolanteSonido.volume_db += delta * 50
 	else:
 		$VolanteSonido.volume_db = -80
 	

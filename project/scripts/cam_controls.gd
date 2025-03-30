@@ -11,7 +11,10 @@ var clickPressed := false
 var overWheel := false
 var overSteer := false
 
+@onready var lightAnimation: AnimationPlayer = $"../AnimationPlayer"
+
 func _ready() -> void:
+	lightAnimation.play("lightAnimation")
 	viewportSize = get_viewport().size
 	mousePos = get_viewport().get_mouse_position()
 	if mousePos.x < viewportSize.x * 0.33:

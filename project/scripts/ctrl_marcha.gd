@@ -35,7 +35,7 @@ func _process(_delta: float) -> void:
 		
 	if force < 0:
 		force = 0
-	$EngineSonido.volume_db = (force - 1) * 50
+	$EngineSonido.volume_db = ((force - 1) * 50) - 20
 
 func GetMarchaAngle():
 	return marcha.rotation_degrees.x

@@ -4,11 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://dsfk7ksrf0vat"
-valid=false
+path="res://.godot/imported/rober.glb-0471f3fd23da2c78c8bcd045e49040fd.scn"
 
 [deps]
 
 source_file="res://models/world/imports/rober.glb"
+dest_files=["res://.godot/imported/rober.glb-0471f3fd23da2c78c8bcd045e49040fd.scn"]
 
 [params]
 

@@ -3,6 +3,7 @@ shader_type canvas_item;
 
 uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
 
+uniform vec3 output_tint = vec3(1.0, 1.0, 1.0);
 
 uniform vec2 screen_size = vec2(320.0, 180.0);
 uniform bool show_curvature = true;
@@ -74,4 +75,6 @@ void fragment() {
 	}
 
 	COLOR = vec4(color, 1.0);
+	float avg = (COLOR.r + COLOR.g + COLOR.b) / 3.0;
+	COLOR.rgb = output_tint * vec3(avg);
 }

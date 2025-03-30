@@ -3,7 +3,7 @@ extends Control
 var txt := "OUTER SPACE WAS NO MEANT FOR US"
 var txt1 := "The first astromobile has 
 been successfully sent into space"
-var txt2 := "BE KIND"
+var txt2 := "BE AWARE"
 
 #cada vez que cambia el texto se vuelve más pequeñp y en el último más grande
 
